@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивный веб-гид по университету</title>
+    
+    <!-- Pannellum CSS через CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
+    
+    <!-- Собственный CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ===== ГЛАВНАЯ СТРАНИЦА ===== -->
+    <section id="home-page" class="page active">
+        <div class="home-container">
+            <div class="home-content">
+                <div class="home-card">
+                    <img class="home-logo" src="assets/logo-mitu.jpg" alt="Логотип университета МИТУ" loading="lazy" />
+                    <h1 class="home-title">Интерактивный веб-гид по университету МИТУ</h1>
+                    
+                    <p class="home-description">
+                        Исследуйте университет в режиме 360° и познакомьтесь с основными локациями: 
+                        главный вход, холл, коридор и аудитория.
+                    </p>
+                    
+                    <div class="home-features">
+                        <div class="feature">
+                            <span class="feature-icon">📸</span>
+                            <p>360° панорамы</p>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🗺️</span>
+                            <p>Интерактивная карта</p>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">ℹ️</span>
+                            <p>Краткая информация</p>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-large" id="start-tour-btn">
+                        Начать тур
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== СТРАНИЦА ВИРТУАЛЬНОГО ТУРА ===== -->
+    <section id="tour-page" class="page">
+        <!-- Верхняя панель управления -->
+        <div class="control-panel">
+            <div class="panel-left">
+                <button class="btn btn-icon" id="home-btn" title="На главную">
+                    <span>🏠</span> Главная
+                </button>
+                <span class="current-location" id="current-location">Главный вход</span>
+            </div>
+            
+            <div class="panel-center">
+                <span class="tour-title">Виртуальный тур по университету</span>
+            </div>
+            
+            <div class="panel-right">
+                <button class="btn btn-icon" id="info-btn" title="Информация о локации">
+                    <span>ℹ️</span> Информация
+                </button>
+                <button class="btn btn-icon" id="map-btn" title="Показать карту">
+                    <span>🗺️</span> Карта
+                </button>
+            </div>
+        </div>
+
+        <!-- Контейнер для панорамы -->
+        <div id="panorama-container" class="panorama-container">
+            <div id="panorama"></div>
+            <div id="loading-indicator" class="loading-indicator">
+                <div class="spinner"></div>
+                <p>Загрузка панорамы...</p>
+            </div>
+            <div id="error-placeholder" class="error-placeholder" style="display: none;">
+                <p>❌ Панорама не загружена</p>
+                <p id="error-message"></p>
+            </div>
+        </div>
+
+        <!-- Кнопки навигации по сценам (для мобильных) -->
+        <div class="navigation-buttons">
+            <button class="btn btn-nav" id="prev-scene-btn" title="Предыдущая сцена">
+                ← Назад
+            </button>
+            <button class="btn btn-nav" id="next-scene-btn" title="Следующая сцена">
+                Вперед →
+            </button>
+        </div>
+    </section>
+
+    <!-- ===== МОДАЛЬНОЕ ОКНО КАРТЫ ===== -->
+    <div id="map-modal" class="modal">
+        <div class="modal-content modal-map">
+            <div class="modal-header">
+                <h2>Карта университета</h2>
+                <button class="btn-close" id="close-map-btn">&times;</button>
+            </div>
+            
+            <div class="modal-body map-body">
+                <div class="map-grid">
+                    <button class="map-location" data-scene="entrance">
+                        <span class="map-icon">🚪</span>
+                        <span class="map-label">Главный вход</span>
+                    </button>
+                    <button class="map-location" data-scene="hall">
+                        <span class="map-icon">🏛️</span>
+                        <span class="map-label">Холл</span>
+                    </button>
+                    <button class="map-location" data-scene="corridor">
+                        <span class="map-icon">🚶</span>
+                        <span class="map-label">Коридор</span>
+                    </button>
+                    <button class="map-location" data-scene="classroom">
+                        <span class="map-icon">👨‍🎓</span>
+                        <span class="map-label">Аудитория</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== МОДАЛЬНОЕ ОКНО ИНФОРМАЦИИ ===== -->
+    <div id="info-modal" class="modal">
+        <div class="modal-content modal-info">
+            <div class="modal-header">
+                <h2 id="info-title">Информация</h2>
+                <button class="btn-close" id="close-info-btn">&times;</button>
+            </div>
+            
+            <div class="modal-body info-body">
+                <p id="info-description"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Фоновый слой для модальных окон -->
+    <div id="modal-backdrop" class="modal-backdrop"></div>
+
+    <!-- Pannellum JavaScript через CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    
+    <!-- Собственный JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
